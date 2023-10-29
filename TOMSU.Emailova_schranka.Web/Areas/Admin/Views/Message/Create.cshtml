@@ -1,0 +1,24 @@
+﻿@model Message
+
+@{
+    ViewData["Title"] = "Message - Create";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label class="form-label" asp-for="Title">Title</label>
+        <input class="form-control" asp-for="Title">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Text">Text</label>
+        <input class="form-control" asp-for="Text">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Odesilatel_Adress">Odesilatel_Adress</label>
+        <input class="form-control" asp-for="Odesilatel_Adress">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

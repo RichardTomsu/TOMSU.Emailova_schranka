@@ -1,0 +1,43 @@
+﻿@model IList<Message>
+
+@{
+	ViewData["Title"] = "Message Admin";
+}
+<h1>@ViewData["Title"]</h1>
+
+@{
+	<a asp-action="Create">Create message</a>
+
+	if (Model != null && Model.Count > 0)
+	{
+		<table class="table">
+			<thead>
+			<th scope="col">@nameof(Message.Id)</th>
+			<th scope="col">@nameof(Message.Title)</th>
+			<th scope="col">@nameof(Message.Text)</th>
+			<th scope="col">@nameof(Message.Odesilatel_Adress)</th>
+			<th scope="col">@nameof(Message.Status)</th>
+			<th scope="col">@nameof(Message.Created_at)</th>
+			<th scope="col">Delete</th>
+			</thead>
+			<tbody>
+				@for (int i = 0; i < Model.Count; i++)
+				{
+					<tr>
+						<th scope="row">@Model[i].Id</th>
+						<td>@Model[i].Title</td>
+						<td>@Model[i].Text</td>
+						<td>@Model[i].Odesilatel_Adress</td>
+						<td>@Model[i].Status</td>
+						<td>@Model[i].Created_at</td>
+						<td><a asp-action="Delete" asp-route-Id="@Model[i].Id" onclick="return ConfirmDelete()">Delete</a></td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+}
+
+@section Scripts{
+	<script src="~/js/dialogs.js"></script>
+}
