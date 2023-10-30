@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TOMSU.Emailova_schranka.Domain.Entities
 {
-    public class Uzivatel
+    public class User
     {
         public string Email_Adress { get; set; }
         public string Jmeno { get; set; }

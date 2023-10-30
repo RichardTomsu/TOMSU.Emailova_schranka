@@ -10,10 +10,19 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
     public class DatabaseFake
     {
         public static List<Message> Messages { get; set; }
+        public static List<User> Users { get; set; }
+        public static List<Odeslani> Seznam_odeslani { get; set; }
+        public static List<Spam> Spams { get; set; }
 
         static DatabaseFake()
         {
-            Messages = new List<Message>();
+            DatabaseInit databaseInit = new DatabaseInit();
+            Messages = databaseInit.GetMessages().ToList();
+            Users = databaseInit.GetUsers().ToList();
+            Seznam_odeslani = databaseInit.GetOdeslani().ToList();
+            Spams = databaseInit.GetSpams().ToList();
+
+            /*Messages = new List<Message>();
             Messages.Add(new Message
             {
                 Id = 1,
@@ -31,7 +40,7 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
                 Odesilatel_Adress = "nkannkdk@sjajs",
                 Status = "Send",
                 Created_at = "20.10.2023 17:27:58"
-            });
+            });*/
         }
     }
 }
