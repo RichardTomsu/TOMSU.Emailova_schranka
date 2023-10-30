@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TOMSU.Emailova_schranka.Application.Abstraction;
+using TOMSU.Emailova_schranka.Application.ViewModels;
 using TOMSU.Emailova_schranka.Web.Models;
 
 namespace TOMSU.Emailova_schranka.Web.Controllers
@@ -7,15 +9,18 @@ namespace TOMSU.Emailova_schranka.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        IHomeService _homeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHomeService homeService)
         {
             _logger = logger;
+            _homeService = homeService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            MessageViewModel viewmodel = _homeService.GetMessageViewModel();
+            return View(viewmodel);
         }
 
         public IActionResult Privacy()
