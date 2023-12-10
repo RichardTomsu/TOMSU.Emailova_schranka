@@ -1,12 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using TOMSU.Emailova_schranka.Application.Abstraction;
 using TOMSU.Emailova_schranka.Application.Implementation;
+using TOMSU.Emailova_schranka.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IMessageAdminService, MessageAdminDFService>();
+//builder.Services.AddScoped<IMessageAdminService, MessageAdminDFService>();
+string connection = builder.Configuration.GetConnectionString("MySQL");
+ServerVersion serverVersion = new MySqlServerVersion("8.0.34");
+builder.Services.AddDbContext<EmailDbContext>(optionsBuilder => optionsBuilder.UseMySql(connection,serverVersion));
+builder.Services.AddScoped<IMessageAdminService, MessageAdminService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();

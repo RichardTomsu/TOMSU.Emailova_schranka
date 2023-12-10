@@ -61,6 +61,7 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
             IList<Odeslani> list_odeslani = new List<Odeslani>();
             list_odeslani.Add(new Odeslani
             {
+                Id = 1,
                 Zprava_Id = 1,
                 Prijemce_Adress = "nkannkdk@sjajs"
             });

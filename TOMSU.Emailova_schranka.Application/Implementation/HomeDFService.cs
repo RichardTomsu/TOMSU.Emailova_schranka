@@ -10,19 +10,14 @@ using TOMSU.Emailova_schranka.Infrastructure.Database;
 
 namespace TOMSU.Emailova_schranka.Application.Implementation
 {
-    public class HomeService : IHomeService
+    public class HomeDFService : IHomeService
     {
-        EmailDbContext _emailDbContext;
-        public HomeService(EmailDbContext emailDbContext)
-        {
-            _emailDbContext = emailDbContext;
-        }
         public MessageViewModel GetMessageViewModel()
         {
             MessageViewModel viewmodel = new MessageViewModel();
-            viewmodel.Messages = _emailDbContext.Messages.ToList();
-            //viewmodel.Users = _emailDbContext.
-            viewmodel.Odeslani = _emailDbContext.Odeslani.ToList();
+            viewmodel.Messages = DatabaseFake.Messages;
+            viewmodel.Users = DatabaseFake.Users;
+            viewmodel.Odeslani = DatabaseFake.Seznam_odeslani;
             return viewmodel;
         }
     }
