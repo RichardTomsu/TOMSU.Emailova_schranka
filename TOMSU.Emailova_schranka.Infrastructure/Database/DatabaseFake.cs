@@ -10,7 +10,6 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
     public class DatabaseFake
     {
         public static List<Message> Messages { get; set; }
-        public static List<User> Users { get; set; }
         public static List<Odeslani> Seznam_odeslani { get; set; }
         public static List<Spam> Spams { get; set; }
 
@@ -18,7 +17,6 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
         {
             DatabaseInit databaseInit = new DatabaseInit();
             Messages = databaseInit.GetMessages().ToList();
-            Users = databaseInit.GetUsers().ToList();
             Seznam_odeslani = databaseInit.GetOdeslani().ToList();
             Spams = databaseInit.GetSpams().ToList();
 

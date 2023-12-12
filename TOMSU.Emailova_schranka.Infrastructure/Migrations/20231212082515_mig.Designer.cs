@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TOMSU.Emailova_schranka.Infrastructure.Database;
 
@@ -10,9 +11,11 @@ using TOMSU.Emailova_schranka.Infrastructure.Database;
 namespace TOMSU.Emailova_schranka.Infrastructure.Migrations
 {
     [DbContext(typeof(EmailDbContext))]
-    partial class EmailDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231212082515_mig")]
+    partial class mig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

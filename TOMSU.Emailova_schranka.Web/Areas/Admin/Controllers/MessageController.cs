@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TOMSU.Emailova_schranka.Application.Abstraction;
 using TOMSU.Emailova_schranka.Domain.Entities;
 using TOMSU.Emailova_schranka.Infrastructure.Database;
+using TOMSU.Emailova_schranka.Infrastructure.Identity.Enums;
 
 namespace TOMSU.Emailova_schranka.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = nameof(Roles.Admin))]
     public class MessageController : Controller
     {
         IMessageAdminService _messageAdminService;

@@ -10,7 +10,7 @@ namespace TOMSU.Emailova_schranka.Application.ViewModels
     public class MessageViewModel
     {
         public IList<Message> Messages { get; set; }
-        public IList<User> Users { get; set; }
+        //public IList<User> Users { get; set; }
         public IList<Odeslani> Odeslani { get; set;}
     }
 }

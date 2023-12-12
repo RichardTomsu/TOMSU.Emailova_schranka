@@ -16,7 +16,7 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
         {
             MessageViewModel viewmodel = new MessageViewModel();
             viewmodel.Messages = DatabaseFake.Messages;
-            viewmodel.Users = DatabaseFake.Users;
+            //viewmodel.Users = DatabaseFake.Users;
             viewmodel.Odeslani = DatabaseFake.Seznam_odeslani;
             return viewmodel;
         }
