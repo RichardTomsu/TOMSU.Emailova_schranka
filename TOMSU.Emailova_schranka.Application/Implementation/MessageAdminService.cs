@@ -14,9 +14,11 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
     public class MessageAdminService : IMessageAdminService
     {
         EmailDbContext _emailDbContext;
-        public MessageAdminService(EmailDbContext emailDbContext)
+        ISecurityService _securityService;
+        public MessageAdminService(EmailDbContext emailDbContext, ISecurityService securityService)
         {
             _emailDbContext = emailDbContext;
+            _securityService = securityService;
         }
 
         public IList<Message> Select()

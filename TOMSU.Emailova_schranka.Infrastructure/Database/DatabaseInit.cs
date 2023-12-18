@@ -100,7 +100,7 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
 				Id = 1,
 				FirstName = "Adminek",
 				LastName = "Adminovy",
-				UserName = "admin",
+				UserName = "admin@emailik.cz",
 				NormalizedUserName = "ADMIN",
 				Email = "admin@admin.cz",
 				NormalizedEmail = "ADMIN@ADMIN.CZ",

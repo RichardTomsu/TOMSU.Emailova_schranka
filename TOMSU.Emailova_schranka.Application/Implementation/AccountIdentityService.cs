@@ -32,11 +32,11 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
         {
             User user = new User()
             {
-                UserName = vm.Username,
+                UserName = vm.Username + "@emailik.cz",
                 FirstName = vm.FirstName,
                 LastName = vm.LastName,
-                Email = vm.Email,
-                PhoneNumber = vm.Phone
+                Email = vm.Username + "@emailik.cz",
+                PhoneNumber = "194"
             };
 
             string[] errors = null;
@@ -52,6 +52,10 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
                         result.Errors.Append(result.Errors.ElementAt(i));
                 }
             }
+            else
+            {
+                Console.WriteLine("dsds");
+            }
 
             if (result.Errors != null && result.Errors.Count() > 0)
             {
@@ -60,6 +64,10 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
                 {
                     errors[i] = result.Errors.ElementAt(i).Description;
                 }
+            }
+            else
+            {
+                Console.WriteLine("aaaa");
             }
 
             return errors;

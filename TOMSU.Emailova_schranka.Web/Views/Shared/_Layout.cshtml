@@ -30,7 +30,7 @@
                         @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Admin))))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a>
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Message" asp-action="Index">Messages</a>
                             </li>
                         }
                     </ul>

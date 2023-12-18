@@ -45,7 +45,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 
 builder.Services.AddScoped<IAccountService, AccountIdentityService>();
-
+builder.Services.AddScoped<ISecurityService, SecurityIdentityService>();
 builder.Services.AddScoped<IMessageAdminService, MessageAdminService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 

@@ -10,18 +10,19 @@ namespace TOMSU.Emailova_schranka.Application.ViewModels
     public class RegisterViewModel
     {
         [Required]
-        public string? Username { get; set; }
+		//[EmailAddress]
+		public string? Username { get; set; }
 
         public string? FirstName { get; set; }
 
         public string? LastName { get; set; }
 
-        [Required]
+        /*[Required]
         [EmailAddress]
         public string? Email { get; set; }
 
         [Phone]
-        public string? Phone { get; set; }
+        public string? Phone { get; set; }*/
 
         [Required]
         public string? Password { get; set; }
