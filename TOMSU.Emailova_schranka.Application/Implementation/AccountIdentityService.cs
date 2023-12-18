@@ -52,10 +52,7 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
                         result.Errors.Append(result.Errors.ElementAt(i));
                 }
             }
-            else
-            {
-                Console.WriteLine("dsds");
-            }
+
 
             if (result.Errors != null && result.Errors.Count() > 0)
             {
@@ -64,10 +61,6 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
                 {
                     errors[i] = result.Errors.ElementAt(i).Description;
                 }
-            }
-            else
-            {
-                Console.WriteLine("aaaa");
             }
 
             return errors;

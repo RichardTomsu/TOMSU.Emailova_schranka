@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using TOMSU.Emailova_schranka.Application.Abstraction;
 using TOMSU.Emailova_schranka.Application.ViewModels;
+using TOMSU.Emailova_schranka.Infrastructure.Identity;
 using TOMSU.Emailova_schranka.Web.Models;
 
 namespace TOMSU.Emailova_schranka.Web.Controllers
@@ -10,16 +11,19 @@ namespace TOMSU.Emailova_schranka.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         IHomeService _homeService;
+        ISecurityService _securityService;
 
-        public HomeController(ILogger<HomeController> logger, IHomeService homeService)
+        public HomeController(ILogger<HomeController> logger, IHomeService homeService, ISecurityService securityService)
         {
             _logger = logger;
             _homeService = homeService;
+            _securityService = securityService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            MessageViewModel viewmodel = _homeService.GetMessageViewModel();
+            User user = await _securityService.GetCurrentUser(User);
+            MessageViewModel viewmodel = _homeService.GetMessageViewModel(user);
             return View(viewmodel);
         }
 

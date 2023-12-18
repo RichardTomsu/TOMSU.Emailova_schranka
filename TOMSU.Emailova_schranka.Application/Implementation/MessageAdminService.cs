@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TOMSU.Emailova_schranka.Application.Abstraction;
 using TOMSU.Emailova_schranka.Domain.Entities;
 using TOMSU.Emailova_schranka.Infrastructure.Database;
+using TOMSU.Emailova_schranka.Infrastructure.Identity;
 
 namespace TOMSU.Emailova_schranka.Application.Implementation
 {
@@ -25,13 +26,20 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
         {
             return _emailDbContext.Messages.ToList();
         }
-        public void Create(Message message)
+        public void Create(Message message, User user)
         {
             if(_emailDbContext.Messages != null)
             {
                 message.Created_at = Convert.ToString(DateTime.Now);
                 message.Status = "Send";
+                string prijemce = message.Odesilatel_Adress;
+                message.Odesilatel_Adress = user.UserName;
                 _emailDbContext.Messages.Add(message);
+                Odeslani odeslani = new Odeslani();
+                odeslani.Prijemce_Adress = prijemce;
+                _emailDbContext.SaveChanges();
+                odeslani.Zprava_Id = _emailDbContext.Messages.ToList().Last().Id;
+                _emailDbContext.Odeslani.Add(odeslani);
                 _emailDbContext.SaveChanges();
             }
         }
@@ -39,9 +47,11 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
 		{
             bool deleted = false;
             Message? message = _emailDbContext.Messages.FirstOrDefault(x => x.Id == id);
+            Odeslani? odeslani = _emailDbContext.Odeslani.FirstOrDefault(x => x.Zprava_Id == id);
             if(message != null)
             {
                 _emailDbContext.Messages.Remove(message);
+                _emailDbContext.Odeslani.Remove(odeslani);
                 _emailDbContext.SaveChanges();
                 deleted = true;
             }

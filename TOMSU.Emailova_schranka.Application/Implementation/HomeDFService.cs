@@ -10,7 +10,7 @@ using TOMSU.Emailova_schranka.Infrastructure.Database;
 
 namespace TOMSU.Emailova_schranka.Application.Implementation
 {
-    public class HomeDFService : IHomeService
+    public class HomeDFService
     {
         public MessageViewModel GetMessageViewModel()
         {
