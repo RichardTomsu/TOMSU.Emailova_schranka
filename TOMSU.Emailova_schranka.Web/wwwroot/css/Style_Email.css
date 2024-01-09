@@ -1,6 +1,6 @@
 ﻿body {
     background: #edf1f5;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .card {
@@ -44,4 +44,10 @@
 }
 .middletext{
     text-align: center;
+}
+.partial-label {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 250px; /* You can adjust the max-width as needed */
 }

@@ -20,7 +20,6 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
                 Text = "Blakijdhalhfssjfah",
                 Title = "Title",
                 Odesilatel_Adress = "nkannkdk@sjajs",
-                Status = "Send",
                 Created_at = "29.10.2023 17:27:58"
             });
             messages.Add(new Message
@@ -29,7 +28,6 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
                 Text = "Blakijdhasadhdjkgadgajgdsgadgjadgjadjglhfssjfah",
                 Title = "Titldadsae",
                 Odesilatel_Adress = "nkannkdk@sjajs",
-                Status = "Send",
                 Created_at = "20.10.2023 17:27:58"
             });
             return messages; 
@@ -41,7 +39,8 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
             {
                 Id = 1,
                 Zprava_Id = 1,
-                Prijemce_Adress = "nkannkdk@sjajs"
+                Prijemce_Adress = "nkannkdk@sjajs",
+                Status = "Send",
             });
             return list_odeslani;
         }
@@ -50,7 +49,8 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
             IList<Spam> spams = new List<Spam>();
             spams.Add(new Spam
             {
-                Uzivatel = "Blakijdhalhfssjfah",
+				Id = 1,
+				Uzivatel = "Blakijdhalhfssjfah",
                 Blokovany_Uzivatel = "Title"
             });
             return spams;

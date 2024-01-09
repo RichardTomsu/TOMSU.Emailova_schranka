@@ -10,6 +10,7 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
     {
         public DbSet<Message> Messages { get; set; }
         public DbSet<Odeslani> Odeslani { get; set;}
+        public DbSet<Spam> Spam { get; set; }
 
         public EmailDbContext(DbContextOptions options) : base(options) { }
 
@@ -20,6 +21,8 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
 			modelBuilder.Entity<Message>().HasData(dbInit.GetMessages());
             
             modelBuilder.Entity<Odeslani>().HasData(dbInit.GetOdeslani());
+
+			modelBuilder.Entity<Spam>().HasData(dbInit.GetSpams());
 
 			modelBuilder.Entity<Role>().HasData(dbInit.CreateRoles());
 

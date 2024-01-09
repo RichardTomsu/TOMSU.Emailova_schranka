@@ -13,7 +13,6 @@ namespace TOMSU.Emailova_schranka.Domain.Entities
         public string Title { get; set; }
         //[ForeignKey(nameof(Message))]
         public string Odesilatel_Adress { get; set; }
-        public string Status { get; set; }
         public string Created_at { get; set; }
 
     }

@@ -1,151 +1,311 @@
 ﻿@model MessageViewModel
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body bg-primary text-white mailbox-widget pb-0">
-                    <h2 class="text-white pb-3">Your Mailbox</h2>
-                    <ul class="nav nav-tabs custom-tab border-bottom-0 mt-4" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="inbox-tab" data-toggle="tab" aria-controls="inbox" href="#inbox" role="tab" aria-selected="true">
-                                <span class="d-block d-md-none"><i class="ti-email"></i></span>
-                                <span class="d-none d-md-block"> INBOX</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="sent-tab" data-toggle="tab" aria-controls="sent" href="#sent" role="tab" aria-selected="false">
-                                <span class="d-block d-md-none"><i class="ti-export"></i></span>
-                                <span class="d-none d-md-block">SENT</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="spam-tab" data-toggle="tab" aria-controls="spam" href="#spam" role="tab" aria-selected="false">
-                                <span class="d-block d-md-none"><i class="ti-panel"></i></span>
-                                <span class="d-none d-md-block">SPAM</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="delete-tab" data-toggle="tab" aria-controls="delete" href="#delete" role="tab" aria-selected="false">
-                                <span class="d-block d-md-none"><i class="ti-trash"></i></span>
-                                <span class="d-none d-md-block">DELETED</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade active show" id="inbox" aria-labelledby="inbox-tab" role="tabpanel">
-                        @if (User.Identity.IsAuthenticated == true)
-                        {
-                            <div>
-                                <div class="row p-4 no-gutters align-items-center">
-                                    <div class="col-sm-12 col-md-6">
-                                        <h3 class="font-light mb-0"><i class="ti-email mr-2">
-
-                                            </i> Unread emails
-                                        </h3>
-                                    </div>
-                                    <div class="col-md-4"></div>
-                                    <div class="col-sm-12 col-md-2">
-                                        <a class="no-line" asp-area="Admin" asp-controller="Message" asp-action="Create">
-                                            <button class="btn btn-circle btn-success text-white">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                            <span class="ml-2 font-normal text-dark text-decoration-line: none">New email</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Mail list-->
-                                <div class="table-responsive">
-                                    <table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
-                                        <tbody>
-                                            <!-- row -->
-                                            @for (int i = 0; i < Model.Messages.Count; i++)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        <span class="mb-0 text-muted">@Model.Messages[i].Title</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="mb-0 text-muted">@Model.Messages[i].Odesilatel_Adress</span>
-                                                    </td>
-                                                    <td>
-                                                        <a class="link" href="javascript: void(0)">
-                                                            <span class="text-dark">@Model.Messages[i].Text </span>
-                                                        </a>
-                                                    </td>
-                                                    <td class="text-muted">@Model.Messages[i].Created_at</td>
-                                                    <td>
-                                                        <a asp-area="Admin" asp-controller="Message" asp-action="Delete"
-                                                           asp-route-Id="@Model.Messages[i].Id" onclick="return ConfirmDelete()">
-                                                            <button class="btn btn-circle btn-danger text-white">
-                                                                <i class="fa fa-trash"></i>
-                                                            </button>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="middletext">
-                                <p >Wow. Empty</p>
-                            </div>
-                        }
-                    </div>
-                    <div class="tab-pane fade" id="sent" aria-labelledby="sent-tab" role="tabpanel">
-                        <div class="row p-3 text-dark">
-                            <div class="col-md-6">
-                                <h3 class="font-light">Lets check profile</h3>
-                                <h4 class="font-light">you can use it with the small code</h4>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="spam" aria-labelledby="spam-tab" role="tabpanel">
-                        <div class="row p-3 text-dark">
-                            <div class="col-md-6">
-                                <h3 class="font-light">Come on you have a lot message</h3>
-                                <h4 class="font-light">you can use it with the small code</h4>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="delete" aria-labelledby="delete-tab" role="tabpanel">
-                        <div class="row p-3 text-dark">
-                            <div class="col-md-6">
-                                <h3 class="font-light">Just do Settings</h3>
-                                <h4 class="font-light">you can use it with the small code</h4>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+@if (User.Identity.IsAuthenticated == true)
+{
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body bg-primary text-white mailbox-widget pb-0">
+						<h2 class="text-white pb-3">Your Mailbox</h2>
+						<ul class="nav nav-tabs custom-tab border-bottom-0 mt-4" id="myTab" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link show active" id="inbox-tab" data-toggle="tab" aria-controls="inbox" href="#inbox" role="tab" aria-selected="true">
+									<span class="d-block d-md-none"><i class="ti-email"></i></span>
+									<span class="d-none d-md-block"> INBOX</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link show" id="sent-tab" data-toggle="tab" aria-controls="sent" href="#sent" role="tab" aria-selected="false">
+									<span class="d-block d-md-none"><i class="ti-export"></i></span>
+									<span class="d-none d-md-block">SENT</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link show" id="spam-tab" data-toggle="tab" aria-controls="spam" href="#spam" role="tab" aria-selected="false">
+									<span class="d-block d-md-none"><i class="ti-panel"></i></span>
+									<span class="d-none d-md-block">SPAM</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link show" id="delete-tab" data-toggle="tab" aria-controls="delete" href="#delete" role="tab" aria-selected="false">
+									<span class="d-block d-md-none"><i class="ti-trash"></i></span>
+									<span class="d-none d-md-block">DELETED</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="tab-content" id="myTabContent">
+						<!--inbox-->
+						<div class="tab-pane fade show active" id="inbox" aria-labelledby="inbox-tab" role="tabpanel">
+							<div>
+								<div class="row p-4 no-gutters align-items-center">
+									<div class="col-sm-12 col-md-6">
+										<h3 class="font-light mb-0">
+											<i class="ti-email mr-2">
+											</i> @Model.Messages.Count emails
+										</h3>
+									</div>
+									<div class="col-md-4"></div>
+									<div class="col-sm-12 col-md-2">
+										<a class="no-line" asp-area="Admin" asp-controller="Message" asp-action="Create">
+											<button class="btn btn-circle btn-success text-white">
+												<i class="fa fa-plus"></i>
+											</button>
+											<span class="ml-2 font-normal text-dark text-decoration-line: none">New email</span>
+										</a>
+									</div>
+								</div>
+								<div class="table-responsive">
+									<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
+										<tbody>
+											<!-- row -->
+											@for (int i = 0; i < Model.Messages.Count; i++)
+											{
+												<tr onclick="openPopup()">
+													<td>
+														<span class="mb-0 text-muted">@Model.Messages[i].Title</span>
+													</td>
+													<td>
+														<span class="mb-0 text-muted">@Model.Messages[i].Odesilatel_Adress</span>
+													</td>
+													<td>
+														<span class="text-dark partial-label">
+															<div class="partial-label">@Model.Messages[i].Text</div>
+														</span>
+													</td>
+													<td class="text-muted">@Model.Messages[i].Created_at</td>
+													<td>
+														<a asp-area="Admin" asp-controller="Message" asp-action="Delete"
+														   asp-route-Id="@Model.Messages[i].Id" onclick="return ConfirmDelete()">
+															<button class="btn btn-circle btn-danger text-white">
+																<i class="fa fa-trash"></i>
+															</button>
+														</a>
+													</td>
+												</tr>
+												<div id="popup">
+													<form asp-area="Admin" asp-controller="Message" asp-action="Create" method="get">
+														<p>@Model.Messages[i].Title</p>
+														<input hidden asp-for="@Model.message.Title" value="@Model.Messages[i].Title">
+														<label asp-for="@Model.message.Odesilatel_Adress">@Model.Messages[i].Odesilatel_Adress</label>
+														<input hidden asp-for="@Model.message.Odesilatel_Adress" value="@Model.Messages[i].Odesilatel_Adress">
+														<p>@Model.Messages[i].Text</p>
+														<div class="row">
+															<div class="col-sm">
+																<button onclick="closePopup()">Close</button>
+															</div>
+															<div class="col-sm"></div>
+															<div class="col-sm">
+																<a class="no-line">
+																	<button type="submit" class="btn btn-success text-white">
+																		<i class="fa fa-plus"></i>
+																	</button>
+																	<span class="font-normal text-dark text-decoration-line: none">Odpovědět</span>
+																</a>
+															</div>
+														</div>
+													</form>
+												</div>
+											}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!--send-->
+						<div class="tab-pane fade show" id="sent" aria-labelledby="sent-tab" role="tabpanel">
+							<div>
+								<div class="row p-4 no-gutters align-items-center">
+									<div class="col-sm-12 col-md-6">
+										<h3 class="font-light mb-0">
+											<i class="ti-email mr-2">
+											</i> @Model.Send_Messages.Count emails
+										</h3>
+									</div>
+									<div class="col-md-4"></div>
+									<div class="col-sm-12 col-md-2">
+										<a class="no-line" asp-area="Admin" asp-controller="Message" asp-action="Create">
+											<button class="btn btn-circle btn-success text-white">
+												<i class="fa fa-plus"></i>
+											</button>
+											<span class="ml-2 font-normal text-dark text-decoration-line: none">New email</span>
+										</a>
+									</div>
+								</div>
+								<div class="table-responsive">
+									<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
+										<tbody>
+											<!-- row -->
+											@for (int i = 0; i < Model.Send_Messages.Count; i++)
+											{
+												<tr onclick="openPopup()">
+													<td>
+														<span class="mb-0 text-muted">@Model.Send_Messages[i].Title</span>
+													</td>
+													<td>
+														<span class="mb-0 text-muted">@Model.Send_Messages[i].Odesilatel_Adress</span>
+													</td>
+													<td>
+														<span class="text-dark partial-label">
+															<div class="partial-label">@Model.Send_Messages[i].Text</div>
+														</span>
+													</td>
+													<td class="text-muted">@Model.Send_Messages[i].Created_at</td>
+												</tr>
+												<div id="popup">
+													<p>@Model.Send_Messages[i].Title</p>
+													<p>@Model.Send_Messages[i].Odesilatel_Adress</p>
+													<p>@Model.Send_Messages[i].Text</p>
+													<button onclick="closePopup()">Close</button>
+												</div>
+											}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!--spam-->
+						<div class="tab-pane fade show" id="spam" aria-labelledby="spam-tab" role="tabpanel">
+							<div>
+								<div class="row p-4 no-gutters align-items-center">
+									<div class="col-sm-12 col-md-6">
+										<h3 class="font-light mb-0">
+											<i class="ti-email mr-2">
+											</i> @Model.Spam_Messages.Count emails
+										</h3>
+									</div>
+									<div class="col-md-4"></div>
+									<div class="col-sm-12 col-md-2">
+										<a class="no-line" asp-area="Admin" asp-controller="Message" asp-action="Create">
+											<button class="btn btn-circle btn-success text-white">
+												<i class="fa fa-plus"></i>
+											</button>
+											<span class="ml-2 font-normal text-dark text-decoration-line: none">New email</span>
+										</a>
+									</div>
+								</div>
+								<div class="table-responsive">
+									<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
+										<tbody>
+											<!-- row -->
+											@for (int i = 0; i < Model.Spam_Messages.Count; i++)
+											{
+												<tr onclick="openPopup()">
+													<td>
+														<span class="mb-0 text-muted">@Model.Spam_Messages[i].Title</span>
+													</td>
+													<td>
+														<span class="mb-0 text-muted">@Model.Spam_Messages[i].Odesilatel_Adress</span>
+													</td>
+													<td>
+														<span class="text-dark partial-label">
+															<div class="partial-label">@Model.Spam_Messages[i].Text</div>
+														</span>
+													</td>
+													<td class="text-muted">@Model.Spam_Messages[i].Created_at</td>
+												</tr>
+												<div id="popup">
+													<p>@Model.Spam_Messages[i].Title</p>
+													<p>@Model.Spam_Messages[i].Odesilatel_Adress</p>
+													<p>@Model.Spam_Messages[i].Text</p>
+													<button onclick="closePopup()">Close</button>
+												</div>
+											}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!--bin-->
+						<div class="tab-pane fade show" id="delete" aria-labelledby="delete-tab" role="tabpanel">
+							<div>
+								<div class="row p-4 no-gutters align-items-center">
+									<div class="col-sm-12 col-md-6">
+										<h3 class="font-light mb-0">
+											<i class="ti-email mr-2">
+											</i> @Model.Spam_Messages.Count emails
+										</h3>
+									</div>
+									<div class="col-md-4"></div>
+									<div class="col-sm-12 col-md-2">
+										<a class="no-line" asp-area="Admin" asp-controller="Message" asp-action="Create">
+											<button class="btn btn-circle btn-success text-white">
+												<i class="fa fa-plus"></i>
+											</button>
+											<span class="ml-2 font-normal text-dark text-decoration-line: none">New email</span>
+										</a>
+									</div>
+								</div>
+								<div class="table-responsive">
+									<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
+										<tbody>
+											<!-- row -->
+											@for (int i = 0; i < Model.Delete_Messages.Count; i++)
+											{
+												<tr onclick="openPopup()">
+													<td>
+														<span class="mb-0 text-muted">@Model.Delete_Messages[i].Title</span>
+													</td>
+													<td>
+														<span class="mb-0 text-muted">@Model.Delete_Messages[i].Odesilatel_Adress</span>
+													</td>
+													<td>
+														<span class="text-dark partial-label">
+															<div class="partial-label">@Model.Delete_Messages[i].Text</div>
+														</span>
+													</td>
+													<td class="text-muted">@Model.Delete_Messages[i].Created_at</td>
+													<td>
+														<a asp-area="Admin" asp-controller="Message" asp-action="Delete"
+														   asp-route-Id="@Model.Messages[i].Id" onclick="return ConfirmDelete()">
+															<button class="btn btn-circle btn-danger text-white">
+																<i class="fa fa-trash"></i>
+															</button>
+														</a>
+													</td>
+												</tr>
+												<div id="popup">
+													<p>@Model.Delete_Messages[i].Title</p>
+													<label>@Model.Delete_Messages[i].Odesilatel_Adress</label>
+													<p>@Model.Delete_Messages[i].Text</p>
+													<div class="row">
+														<div class="col-sm">
+															<button onclick="closePopup()">Close</button>
+														</div>
+														<div class="col-sm"></div>
+													</div>
+												</div>
+											}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+else
+{
+	<div class="middletext">
+		<p>Je potřeba se přihlásit nebo zaregistrovat!</p>
+	</div>
+}
 
 
 @section Styles
-{
-	<link rel="stylesheet" href="~/css/Style_Email.css" asp-append-version="true"/>
+	{
+	<link rel="stylesheet" href="~/css/Style_Email.css" asp-append-version="true" />
 }
 @section Scripts{
-    <script src="~/js/dialogs.js"></script>
+	<script src="~/js/dialogs.js"></script>
+	<script src="~/js/desc.js"></script>
 }
+

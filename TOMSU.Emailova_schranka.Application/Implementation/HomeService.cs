@@ -26,23 +26,52 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
             MessageViewModel viewmodel = new MessageViewModel();
             //viewmodel.Odeslani = _emailDbContext.Odeslani.ToList();
             viewmodel.Messages = _emailDbContext.Messages.ToList();
-            if (user != null)
-            {
-                List<Odeslani> odesList = _emailDbContext.Odeslani.Where(x => x.Prijemce_Adress == user.UserName).ToList();
-                List<Message> messages = new List<Message>();
-                foreach (var item in odesList)
-                {
-                    Message mes = _emailDbContext.Messages.FirstOrDefault(x => x.Id == item.Zprava_Id);
-                    messages.Add(mes);
-                    Console.WriteLine(mes.Id);
-                }
-                if (messages != null)
-                {
-                    viewmodel.Messages = messages;
-                }
-                
-            }
-            return viewmodel;
+			List<Odeslani> odesList = _emailDbContext.Odeslani.Where(x => x.Prijemce_Adress == user.UserName).ToList();
+			List<Message> messages = new List<Message>();
+			List<Message> smessages = new List<Message>();
+			List<Message> dmessages = new List<Message>();
+			List<Message> send_mess = _emailDbContext.Messages.
+				Where(x => x.Odesilatel_Adress == user.UserName).OrderByDescending(x => x.Created_at).ToList();
+			foreach (var item in odesList)
+			{
+				Message? mes = _emailDbContext.Messages.FirstOrDefault(
+					x => x.Id == item.Zprava_Id);
+				if(item.Status == "Spam")
+				{
+					smessages.Add(mes);
+				}
+				else if (item.Status == "Delete")
+				{
+					dmessages.Add(mes);
+				}
+				else
+				{
+					messages.Add(mes);
+				}
+			}
+			if (messages != null)
+			{
+				viewmodel.Messages = messages.OrderByDescending(x => x.Created_at).ToList();
+			}
+			if (send_mess != null)
+			{
+				for (int i = 0; i < send_mess.Count; i++)
+				{
+					string adress = string.Join(" ", _emailDbContext.Odeslani.
+						Where(x => x.Zprava_Id == send_mess[i].Id).Select(p => p.Prijemce_Adress ).ToList());
+					send_mess[i].Odesilatel_Adress = adress;
+				}
+				viewmodel.Send_Messages = send_mess;
+			}
+			if (smessages != null)
+			{
+				viewmodel.Spam_Messages = smessages.OrderByDescending(x => x.Created_at).ToList();
+			}
+			if (dmessages != null)
+			{
+				viewmodel.Delete_Messages = dmessages.OrderByDescending(x => x.Created_at).ToList();
+			}
+			return viewmodel;
         }
 
     }

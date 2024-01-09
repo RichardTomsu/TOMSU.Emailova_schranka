@@ -13,5 +13,6 @@ namespace TOMSU.Emailova_schranka.Application.Abstraction
         IList<Message> Select();
         void Create(Message message, User user);
         bool Delete(int id);
+        IList<string> GetUsersAdresses();
     }
 }

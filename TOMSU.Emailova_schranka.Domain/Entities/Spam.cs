@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TOMSU.Emailova_schranka.Domain.Entities
 {
-    public class Spam
+    public class Spam : Entity<int>
     {
         public string Uzivatel {  get; set; }
         public string Blokovany_Uzivatel { get; set; }

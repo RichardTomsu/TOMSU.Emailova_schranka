@@ -26,20 +26,27 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
         {
             return _emailDbContext.Messages.ToList();
         }
+        public IList<string> GetUsersAdresses()
+        {
+            return _emailDbContext.Users.Select(p => p.UserName).ToList();
+        }
         public void Create(Message message, User user)
         {
-            if(_emailDbContext.Messages != null)
+            if (_emailDbContext.Messages != null)
             {
                 message.Created_at = Convert.ToString(DateTime.Now);
-                message.Status = "Send";
-                string prijemce = message.Odesilatel_Adress;
+                IList<string> prijemce = message.Odesilatel_Adress.Split();
                 message.Odesilatel_Adress = user.UserName;
                 _emailDbContext.Messages.Add(message);
                 Odeslani odeslani = new Odeslani();
-                odeslani.Prijemce_Adress = prijemce;
+                odeslani.Status = "Send";
                 _emailDbContext.SaveChanges();
                 odeslani.Zprava_Id = _emailDbContext.Messages.ToList().Last().Id;
-                _emailDbContext.Odeslani.Add(odeslani);
+                foreach (var item in prijemce)
+                {
+                    odeslani.Prijemce_Adress = item;
+					_emailDbContext.Odeslani.Add(odeslani);
+				}
                 _emailDbContext.SaveChanges();
             }
         }

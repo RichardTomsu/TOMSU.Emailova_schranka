@@ -1,4 +1,4 @@
-﻿@model Message
+﻿@model MessageViewModel
 
 @{
     ViewData["Title"] = "Message - Create";
@@ -8,17 +8,36 @@
 
 <form asp-action="Create" method="post">
     <div class="mb-3">
-        <label class="form-label" asp-for="Title">Title</label>
-        <input class="form-control" asp-for="Title">
+        <label class="form-label" asp-for="message.Title">Název</label>
+        <input class="form-control" asp-for="message.Title" value="RE: @Model.message.Title">
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Text">Text</label>
-        <input class="form-control" asp-for="Text">
+        <label class="form-label" asp-for="message.Odesilatel_Adress">Email příjemce</label>
+        <input id="inputt" class="form-control" asp-for="message.Odesilatel_Adress" value="@Model.message.Odesilatel_Adress">
+        <label for="for">Kontakty</label>
+        <select id="for" name="for" onchange="updateIn()">
+            @for (int i = 0; i < Model.UsersAdr.Count; i++)
+            {
+                <option value="@Model.UsersAdr[i]">@Model.UsersAdr[i]</option>
+            }
+        </select>
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Odesilatel_Adress">Odesilatel_Adress</label>
-        <input class="form-control" asp-for="Odesilatel_Adress">
+        <label class="form-label" asp-for="message.Text">Text</label>
+        <textarea rows="8" class="form-control" asp-for="message.Text"></textarea>
     </div>
     
-    <button type="submit" class="btn btn-primary">Submit</button>
+    
+    <button type="submit" class="btn btn-primary">Odeslat</button>
 </form>
+<script>
+    function updateIn() {
+        var selectedV = document.getElementById("for").value;
+        if (document.getElementById("inputt").value != "") {
+            document.getElementById("inputt").value += " " + selectedV;
+        }
+        else {
+            document.getElementById("inputt").value = selectedV;
+        }
+    }
+</script>

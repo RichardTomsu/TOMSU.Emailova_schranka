@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TOMSU.Emailova_schranka.Application.Abstraction;
+using TOMSU.Emailova_schranka.Application.Implementation;
+using TOMSU.Emailova_schranka.Application.ViewModels;
 using TOMSU.Emailova_schranka.Domain.Entities;
 using TOMSU.Emailova_schranka.Infrastructure.Database;
 using TOMSU.Emailova_schranka.Infrastructure.Identity;
@@ -31,21 +33,22 @@ namespace TOMSU.Emailova_schranka.Web.Areas.Admin.Controllers
                 IList<Message> messages = _messageAdminService.Select();
                 return View(messages);
             }
-            
             return View();
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(MessageViewModel viewModel)
         {
-            return View();
+            //MessageViewModel viewModel = new MessageViewModel();
+            viewModel.UsersAdr = _messageAdminService.GetUsersAdresses();
+            return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Message message, User user)
+        public async Task<IActionResult> Create(MessageViewModel viewModel, User user)
         {
             user = await _securityService.GetCurrentUser(User);
-            _messageAdminService.Create(message, user);
+            _messageAdminService.Create(viewModel.message, user);
 			return RedirectToAction(
 					nameof(HomeController.Index),
 					nameof(HomeController).Replace(nameof(Controller), String.Empty), new { area = String.Empty });

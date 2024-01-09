@@ -23,8 +23,12 @@ namespace TOMSU.Emailova_schranka.Web.Controllers
         public async Task<IActionResult> Index()
         {
             User user = await _securityService.GetCurrentUser(User);
-            MessageViewModel viewmodel = _homeService.GetMessageViewModel(user);
-            return View(viewmodel);
+            if(user != null)
+            {
+				MessageViewModel viewmodel = _homeService.GetMessageViewModel(user);
+				return View(viewmodel);
+			}
+            return View();
         }
 
         public IActionResult Privacy()

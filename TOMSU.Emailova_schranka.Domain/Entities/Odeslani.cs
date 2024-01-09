@@ -12,5 +12,7 @@ namespace TOMSU.Emailova_schranka.Domain.Entities
         [ForeignKey(nameof(Message))]
         public int Zprava_Id { get; set; }
         public string Prijemce_Adress { get; set; }
+        public string Status { get; set; }
+
     }
 }

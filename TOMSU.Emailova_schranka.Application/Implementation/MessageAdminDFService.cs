@@ -30,7 +30,7 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
             if(DatabaseFake.Messages != null)
             {
                 message.Created_at = Convert.ToString(DateTime.Now);
-                message.Status = "Send";
+                //message.Status = "Send";
                 Console.WriteLine("lol");
                 DatabaseFake.Messages.Add(message);
             }

@@ -14,5 +14,5 @@ namespace TOMSU.Emailova_schranka.Application.Abstraction
 		//Task<User> FindUserByEmail(string email);
 		Task<IList<string>> GetUserRoles(User user);
 		Task<User> GetCurrentUser(ClaimsPrincipal principal);
-	}
+    }
 }
