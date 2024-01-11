@@ -20,9 +20,9 @@ namespace TOMSU.Emailova_schranka.Application.ViewModels
         /*[Required]
         [EmailAddress]
         public string? Email { get; set; }
-
+        */
         [Phone]
-        public string? Phone { get; set; }*/
+        public string? Phone { get; set; }
 
         [Required]
         public string? Password { get; set; }

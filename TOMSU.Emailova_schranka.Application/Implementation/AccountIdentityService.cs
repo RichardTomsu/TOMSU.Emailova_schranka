@@ -36,7 +36,7 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
                 FirstName = vm.FirstName,
                 LastName = vm.LastName,
                 Email = vm.Username + "@emailik.cz",
-                PhoneNumber = "194"
+                PhoneNumber = vm.Phone
             };
 
             string[] errors = null;

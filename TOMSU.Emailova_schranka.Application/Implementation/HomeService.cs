@@ -23,6 +23,7 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
         }
         public MessageViewModel GetMessageViewModel(User user)
         {
+			Console.WriteLine("lol");
             MessageViewModel viewmodel = new MessageViewModel();
             //viewmodel.Odeslani = _emailDbContext.Odeslani.ToList();
             viewmodel.Messages = _emailDbContext.Messages.ToList();
@@ -55,12 +56,6 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
 			}
 			if (send_mess != null)
 			{
-				for (int i = 0; i < send_mess.Count; i++)
-				{
-					string adress = string.Join(" ", _emailDbContext.Odeslani.
-						Where(x => x.Zprava_Id == send_mess[i].Id).Select(p => p.Prijemce_Adress ).ToList());
-					send_mess[i].Odesilatel_Adress = adress;
-				}
 				viewmodel.Send_Messages = send_mess;
 			}
 			if (smessages != null)

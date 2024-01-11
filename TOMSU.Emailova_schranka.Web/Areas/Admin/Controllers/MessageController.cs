@@ -18,8 +18,9 @@ namespace TOMSU.Emailova_schranka.Web.Areas.Admin.Controllers
         IMessageAdminService _messageAdminService;
         ISecurityService _securityService;
         User user;
+		MessageViewModel viewModel = new MessageViewModel();
 
-        public MessageController(IMessageAdminService messageAdminService, ISecurityService securityService) 
+		public MessageController(IMessageAdminService messageAdminService, ISecurityService securityService) 
         { 
             _messageAdminService = messageAdminService;
             _securityService = securityService;
@@ -36,19 +37,17 @@ namespace TOMSU.Emailova_schranka.Web.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpGet]
+        //[HttpGet]
         public IActionResult Create(MessageViewModel viewModel)
         {
-            //MessageViewModel viewModel = new MessageViewModel();
             viewModel.UsersAdr = _messageAdminService.GetUsersAdresses();
             return View(viewModel);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(MessageViewModel viewModel, User user)
+        //[HttpPost]
+        public IActionResult Create2(MessageViewModel viewModel)
         {
-            user = await _securityService.GetCurrentUser(User);
-            _messageAdminService.Create(viewModel.message, user);
+            _messageAdminService.Create(viewModel.message);
 			return RedirectToAction(
 					nameof(HomeController.Index),
 					nameof(HomeController).Replace(nameof(Controller), String.Empty), new { area = String.Empty });
@@ -67,5 +66,45 @@ namespace TOMSU.Emailova_schranka.Web.Areas.Admin.Controllers
                 return NotFound();
             }
         }
-    }
+        public async Task<IActionResult> ChangeStatus(int id)
+        {
+			user = await _securityService.GetCurrentUser(User);
+            bool changed = _messageAdminService.SendToBin(id, user.UserName);
+            //bool changed = _messageAdminService.Delete(id);
+			if (changed)
+			{
+				return RedirectToAction(
+					nameof(HomeController.Index),
+					nameof(HomeController).Replace(nameof(Controller), String.Empty), new { area = String.Empty });
+			}
+			else
+			{
+				return NotFound();
+			}
+		}
+		public async Task<IActionResult> ChangeToSpam(int id)
+		{
+
+			user = await _securityService.GetCurrentUser(User);
+			_messageAdminService.SendToSpam(id, user.UserName);
+			return RedirectToAction(
+					nameof(HomeController.Index),
+					nameof(HomeController).Replace(nameof(Controller), String.Empty), new { area = String.Empty });
+		}
+        public async Task<IActionResult> Remove(int id)
+        {
+			user = await _securityService.GetCurrentUser(User);
+			bool deleted = _messageAdminService.Remove(user.UserName, id);
+			if (deleted)
+			{
+				return RedirectToAction(
+					nameof(HomeController.Index),
+					nameof(HomeController).Replace(nameof(Controller), String.Empty), new { area = String.Empty });
+			}
+			else
+			{
+				return NotFound();
+			}
+		}
+	}
 }

@@ -1,0 +1,47 @@
+﻿@model MessageViewModel
+@{
+    ViewData["Title"] = "Zpráva";
+}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+<div>
+	<h3>@Model.message.Title</h3>
+	<div class="row">
+		<div>
+			<label>Autor:</label>
+			<label>@Model.message.Odesilatel_Adress</label>
+		</div>
+		<div>
+			<a asp-area="Admin" asp-controller="Message" asp-action="ChangeToSpam"
+			   asp-route-Id="@Model.message.Id">
+				<button class="btn btn-circle btn-danger text-white">
+					Označit jako spam
+				</button>
+			</a>
+		</div>
+	</div>
+	<div class="email-body">
+		<p>@Model.message.Text</p>
+	</div>
+	<div class="row">
+		<div class="col-sm">
+		</div>
+		<div class="col-sm"></div>
+		<div class="col-sm">
+			<form asp-area="Admin" asp-controller="Message" asp-action="Create" class="no-line">
+				<input hidden asp-for="@Model.message.Title" value="@Model.message.Title">
+				<input hidden asp-for="@Model.message.Odesilatel_Adress" value="@Model.message.Odesilatel_Adress">
+				<button type="submit" class="btn btn-success text-white">
+					<i class="fa fa-plus"></i>
+				</button>
+				<span class="font-normal text-dark text-decoration-line: none">Odpovědět</span>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+@section Styles
+	{
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+}

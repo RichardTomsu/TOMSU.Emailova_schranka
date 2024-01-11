@@ -16,6 +16,7 @@
 			<th scope="col">@nameof(Message.Title)</th>
 			<th scope="col">@nameof(Message.Text)</th>
 			<th scope="col">@nameof(Message.Odesilatel_Adress)</th>
+			<th scope="col">@nameof(Message.Cil_adresa)</th>
 			<th scope="col">@nameof(Message.Created_at)</th>
 			<th scope="col">Delete</th>
 			</thead>
@@ -27,6 +28,7 @@
 						<td>@Model[i].Title</td>
 						<td>@Model[i].Text</td>
 						<td>@Model[i].Odesilatel_Adress</td>
+						<td>@Model[i].Cil_adresa</td>
 						<td>@Model[i].Created_at</td>
 						<td><a asp-action="Delete" asp-route-Id="@Model[i].Id" onclick="return ConfirmDelete()">Delete</a></td>
 					</tr>

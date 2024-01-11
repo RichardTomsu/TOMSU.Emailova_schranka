@@ -20,7 +20,8 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
                 Text = "Blakijdhalhfssjfah",
                 Title = "Title",
                 Odesilatel_Adress = "nkannkdk@sjajs",
-                Created_at = "29.10.2023 17:27:58"
+                Created_at = "29.10.2023 17:27:58",
+				Cil_adresa = "dads"
             });
             messages.Add(new Message
             {
@@ -28,7 +29,8 @@ namespace TOMSU.Emailova_schranka.Infrastructure.Database
                 Text = "Blakijdhasadhdjkgadgajgdsgadgjadgjadjglhfssjfah",
                 Title = "Titldadsae",
                 Odesilatel_Adress = "nkannkdk@sjajs",
-                Created_at = "20.10.2023 17:27:58"
+                Created_at = "20.10.2023 17:27:58",
+				Cil_adresa = "dadsadsad"
             });
             return messages; 
         }

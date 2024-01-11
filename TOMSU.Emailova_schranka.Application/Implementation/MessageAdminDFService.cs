@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TOMSU.Emailova_schranka.Application.Abstraction;
 using TOMSU.Emailova_schranka.Domain.Entities;
 using TOMSU.Emailova_schranka.Infrastructure.Database;
+using TOMSU.Emailova_schranka.Infrastructure.Identity;
 
 namespace TOMSU.Emailova_schranka.Application.Implementation
 {
@@ -17,7 +18,7 @@ namespace TOMSU.Emailova_schranka.Application.Implementation
         {
             return DatabaseFake.Messages;
         }
-        public void Create(Message message)
+        public void Create(Message message, User user)
         {
             if(DatabaseFake.Messages != null && DatabaseFake.Messages.Count > 0)
             {

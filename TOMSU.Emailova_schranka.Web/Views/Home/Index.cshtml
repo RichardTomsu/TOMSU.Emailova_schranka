@@ -11,7 +11,7 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-body bg-primary text-white mailbox-widget pb-0">
-						<h2 class="text-white pb-3">Your Mailbox</h2>
+						<h2 class="text-white pb-3">Emailik.cz</h2>
 						<ul class="nav nav-tabs custom-tab border-bottom-0 mt-4" id="myTab" role="tablist">
 							<li class="nav-item">
 								<a class="nav-link show active" id="inbox-tab" data-toggle="tab" aria-controls="inbox" href="#inbox" role="tab" aria-selected="true">
@@ -22,7 +22,7 @@
 							<li class="nav-item">
 								<a class="nav-link show" id="sent-tab" data-toggle="tab" aria-controls="sent" href="#sent" role="tab" aria-selected="false">
 									<span class="d-block d-md-none"><i class="ti-export"></i></span>
-									<span class="d-none d-md-block">SENT</span>
+									<span class="d-none d-md-block">ODESLANÉ</span>
 								</a>
 							</li>
 							<li class="nav-item">
@@ -34,7 +34,7 @@
 							<li class="nav-item">
 								<a class="nav-link show" id="delete-tab" data-toggle="tab" aria-controls="delete" href="#delete" role="tab" aria-selected="false">
 									<span class="d-block d-md-none"><i class="ti-trash"></i></span>
-									<span class="d-none d-md-block">DELETED</span>
+									<span class="d-none d-md-block">KOŠ</span>
 								</a>
 							</li>
 						</ul>
@@ -61,12 +61,12 @@
 									</div>
 								</div>
 								<div class="table-responsive">
-									<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
+									<table id="itemTable" class="table email-table no-wrap table-hover v-middle mb-0 font-14">
 										<tbody>
 											<!-- row -->
 											@for (int i = 0; i < Model.Messages.Count; i++)
 											{
-												<tr onclick="openPopup()">
+												<tr>
 													<td>
 														<span class="mb-0 text-muted">@Model.Messages[i].Title</span>
 													</td>
@@ -80,7 +80,20 @@
 													</td>
 													<td class="text-muted">@Model.Messages[i].Created_at</td>
 													<td>
-														<a asp-area="Admin" asp-controller="Message" asp-action="Delete"
+														<form asp-area="" asp-controller="Home" asp-action="Show_desc" >
+															<input hidden asp-for="@Model.message.Id" value="@Model.Messages[i].Id">
+															<input hidden asp-for="@Model.message.Title" value="@Model.Messages[i].Title">
+															<input hidden asp-for="@Model.message.Odesilatel_Adress" value="@Model.Messages[i].Odesilatel_Adress">
+															<input hidden asp-for="@Model.message.Cil_adresa" value="@Model.Messages[i].Cil_adresa">
+															<input hidden asp-for="@Model.message.Created_at" value="@Model.Messages[i].Created_at">
+															<input hidden asp-for="@Model.message.Text" value="@Model.Messages[i].Text">
+															<button class="btn btn-circle btn-secondary text-white">
+																Detaily
+															</button>
+														</form>
+													</td>
+													<td>
+														<a asp-area="Admin" asp-controller="Message" asp-action="ChangeStatus"
 														   asp-route-Id="@Model.Messages[i].Id" onclick="return ConfirmDelete()">
 															<button class="btn btn-circle btn-danger text-white">
 																<i class="fa fa-trash"></i>
@@ -88,29 +101,6 @@
 														</a>
 													</td>
 												</tr>
-												<div id="popup">
-													<form asp-area="Admin" asp-controller="Message" asp-action="Create" method="get">
-														<p>@Model.Messages[i].Title</p>
-														<input hidden asp-for="@Model.message.Title" value="@Model.Messages[i].Title">
-														<label asp-for="@Model.message.Odesilatel_Adress">@Model.Messages[i].Odesilatel_Adress</label>
-														<input hidden asp-for="@Model.message.Odesilatel_Adress" value="@Model.Messages[i].Odesilatel_Adress">
-														<p>@Model.Messages[i].Text</p>
-														<div class="row">
-															<div class="col-sm">
-																<button onclick="closePopup()">Close</button>
-															</div>
-															<div class="col-sm"></div>
-															<div class="col-sm">
-																<a class="no-line">
-																	<button type="submit" class="btn btn-success text-white">
-																		<i class="fa fa-plus"></i>
-																	</button>
-																	<span class="font-normal text-dark text-decoration-line: none">Odpovědět</span>
-																</a>
-															</div>
-														</div>
-													</form>
-												</div>
 											}
 										</tbody>
 									</table>
@@ -143,12 +133,12 @@
 											<!-- row -->
 											@for (int i = 0; i < Model.Send_Messages.Count; i++)
 											{
-												<tr onclick="openPopup()">
+												<tr onclick="openPopup(popup2)">
 													<td>
 														<span class="mb-0 text-muted">@Model.Send_Messages[i].Title</span>
 													</td>
 													<td>
-														<span class="mb-0 text-muted">@Model.Send_Messages[i].Odesilatel_Adress</span>
+														<span class="mb-0 text-muted">@Model.Send_Messages[i].Cil_adresa</span>
 													</td>
 													<td>
 														<span class="text-dark partial-label">
@@ -157,7 +147,7 @@
 													</td>
 													<td class="text-muted">@Model.Send_Messages[i].Created_at</td>
 												</tr>
-												<div id="popup">
+												<div id="popup2">
 													<p>@Model.Send_Messages[i].Title</p>
 													<p>@Model.Send_Messages[i].Odesilatel_Adress</p>
 													<p>@Model.Send_Messages[i].Text</p>
@@ -195,7 +185,7 @@
 											<!-- row -->
 											@for (int i = 0; i < Model.Spam_Messages.Count; i++)
 											{
-												<tr onclick="openPopup()">
+												<tr onclick="openPopup(popup3)">
 													<td>
 														<span class="mb-0 text-muted">@Model.Spam_Messages[i].Title</span>
 													</td>
@@ -208,13 +198,16 @@
 														</span>
 													</td>
 													<td class="text-muted">@Model.Spam_Messages[i].Created_at</td>
+													<td>
+														<a asp-area="Admin" asp-controller="Message" asp-action="ChangeStatus"
+														   asp-route-Id="@Model.Messages[i].Id" onclick="return ConfirmDelete()">
+															<button class="btn btn-circle btn-danger text-white">
+																<i class="fa fa-trash"></i>
+															</button>
+														</a>
+													</td>
 												</tr>
-												<div id="popup">
-													<p>@Model.Spam_Messages[i].Title</p>
-													<p>@Model.Spam_Messages[i].Odesilatel_Adress</p>
-													<p>@Model.Spam_Messages[i].Text</p>
-													<button onclick="closePopup()">Close</button>
-												</div>
+												
 											}
 										</tbody>
 									</table>
@@ -228,7 +221,7 @@
 									<div class="col-sm-12 col-md-6">
 										<h3 class="font-light mb-0">
 											<i class="ti-email mr-2">
-											</i> @Model.Spam_Messages.Count emails
+											</i> @Model.Delete_Messages.Count emails
 										</h3>
 									</div>
 									<div class="col-md-4"></div>
@@ -247,7 +240,7 @@
 											<!-- row -->
 											@for (int i = 0; i < Model.Delete_Messages.Count; i++)
 											{
-												<tr onclick="openPopup()">
+												<tr onclick="openPopup(popup4)">
 													<td>
 														<span class="mb-0 text-muted">@Model.Delete_Messages[i].Title</span>
 													</td>
@@ -261,7 +254,7 @@
 													</td>
 													<td class="text-muted">@Model.Delete_Messages[i].Created_at</td>
 													<td>
-														<a asp-area="Admin" asp-controller="Message" asp-action="Delete"
+														<a asp-area="Admin" asp-controller="Message" asp-action="Remove"
 														   asp-route-Id="@Model.Messages[i].Id" onclick="return ConfirmDelete()">
 															<button class="btn btn-circle btn-danger text-white">
 																<i class="fa fa-trash"></i>
@@ -269,7 +262,7 @@
 														</a>
 													</td>
 												</tr>
-												<div id="popup">
+												<div id="popup4">
 													<p>@Model.Delete_Messages[i].Title</p>
 													<label>@Model.Delete_Messages[i].Odesilatel_Adress</label>
 													<p>@Model.Delete_Messages[i].Text</p>
@@ -299,7 +292,6 @@ else
 	</div>
 }
 
-
 @section Styles
 	{
 	<link rel="stylesheet" href="~/css/Style_Email.css" asp-append-version="true" />
@@ -307,5 +299,8 @@ else
 @section Scripts{
 	<script src="~/js/dialogs.js"></script>
 	<script src="~/js/desc.js"></script>
+	<script>
+
+	</script>
 }
 

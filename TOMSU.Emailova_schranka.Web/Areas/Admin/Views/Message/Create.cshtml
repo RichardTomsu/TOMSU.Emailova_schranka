@@ -6,14 +6,29 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="Create" method="post">
+<form asp-action="Create2" method="post">
     <div class="mb-3">
         <label class="form-label" asp-for="message.Title">Název</label>
-        <input class="form-control" asp-for="message.Title" value="RE: @Model.message.Title">
+        @if (Model.message != null)
+        {
+            <input class="form-control" asp-for="message.Title" value="RE: @Model.message.Title">
+        }
+        else
+        {
+            <input class="form-control" asp-for="message.Title">
+        }
     </div>
+    <input hidden asp-for="message.Odesilatel_Adress" value="@User.Identity.Name"/>
     <div class="mb-3">
-        <label class="form-label" asp-for="message.Odesilatel_Adress">Email příjemce</label>
-        <input id="inputt" class="form-control" asp-for="message.Odesilatel_Adress" value="@Model.message.Odesilatel_Adress">
+        <label class="form-label" asp-for="message.Cil_adresa">Email příjemce</label>
+        @if (Model.message != null)
+        {
+            <input id="inputt" class="form-control" asp-for="message.Cil_adresa" value="@Model.message.Odesilatel_Adress">
+        }
+        else
+        {
+            <input id="inputt" class="form-control" asp-for="message.Cil_adresa">
+        }
         <label for="for">Kontakty</label>
         <select id="for" name="for" onchange="updateIn()">
             @for (int i = 0; i < Model.UsersAdr.Count; i++)

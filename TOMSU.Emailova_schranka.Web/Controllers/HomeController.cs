@@ -25,15 +25,23 @@ namespace TOMSU.Emailova_schranka.Web.Controllers
             User user = await _securityService.GetCurrentUser(User);
             if(user != null)
             {
+				Console.WriteLine("lll");
 				MessageViewModel viewmodel = _homeService.GetMessageViewModel(user);
+                Console.WriteLine("lll");
 				return View(viewmodel);
 			}
+            Console.WriteLine("aaaa");
             return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+		public IActionResult Show_desc(MessageViewModel viewModel)
+        {
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

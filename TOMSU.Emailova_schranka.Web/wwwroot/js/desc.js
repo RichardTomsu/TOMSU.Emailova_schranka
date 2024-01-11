@@ -1,11 +1,11 @@
-﻿function openPopup() {
-    var popup = document.getElementById("popup");
+﻿function openPopup(input) {
+    var popup = document.getElementById(input);
     popup.style.display = "block";
 }
 
 // Function to close the pop-up
-function closePopup() {
-    var popup = document.getElementById("popup");
+function closePopup(input) {
+    var popup = document.getElementById(input);
     popup.style.display = "none";
 }
 
