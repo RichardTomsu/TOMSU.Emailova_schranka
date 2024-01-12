@@ -39,7 +39,7 @@ namespace TOMSU.Emailova_schránka.Tests.ApplicationLayer
             Message addtest = databaseContext.Messages.First();
             Assert.NotNull(addtest.Title);
             Assert.NotNull(addtest.Odesilatel_Adress);
-            Assert.Matches(addtest.Odesilatel_Adress, tuser.UserName);
+            Assert.Matches(addtest.Odesilatel_Adress, testmes.Odesilatel_Adress);
 
 
         }
@@ -50,6 +50,7 @@ namespace TOMSU.Emailova_schránka.Tests.ApplicationLayer
             {
                 Title = "Test",
                 Odesilatel_Adress = "test@emailik.cz",
+                Cil_adresa = "cil@emailik.cz",
                 Text = "Lorem ipsum dolor sit amet, " +
                 "consectetuer adipiscing elit. Nam quis nulla. " +
                 "Praesent dapibus. Etiam commodo dui eget wisi. " +

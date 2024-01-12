@@ -255,7 +255,7 @@
 													<td class="text-muted">@Model.Delete_Messages[i].Created_at</td>
 													<td>
 														<a asp-area="Admin" asp-controller="Message" asp-action="Remove"
-														   asp-route-Id="@Model.Messages[i].Id" onclick="return ConfirmDelete()">
+														   asp-route-Id="@Model.Delete_Messages[i].Id" onclick="return ConfirmDelete()">
 															<button class="btn btn-circle btn-danger text-white">
 																<i class="fa fa-trash"></i>
 															</button>

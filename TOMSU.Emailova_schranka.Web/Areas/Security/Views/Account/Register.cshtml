@@ -9,6 +9,9 @@
 }
 <div id="logreg-forms">
     <form asp-action="Register" method="post" class="form-signup">
+        <br />
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Registrace</h1>
+        <br />
         <hr>
 
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -34,13 +37,13 @@
         <br />
 
         <div class="text-center">
-            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
+            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Zaregistrovat se</button>
         </div>
 
         <br />
         <br />
         <hr>
-        <a asp-action="Login" class="btn btn-success btn-block text-white" type="button" id="btn-signin"><i class="fas fa-sign-in-alt"></i> Sign in to Existing Account</a>
+        <a asp-action="Login" class="btn btn-success btn-block text-white" type="button" id="btn-signin"><i class="fas fa-sign-in-alt"></i> Přihlásit se</a>
 
     </form>
 </div>

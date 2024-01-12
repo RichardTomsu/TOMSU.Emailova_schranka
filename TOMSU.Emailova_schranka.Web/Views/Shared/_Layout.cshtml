@@ -30,7 +30,7 @@
                         @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Admin))))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Message" asp-action="Index">Messages</a>
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Message" asp-action="Index">Zprávy</a>
                             </li>
                         }
                     </ul>
@@ -38,8 +38,8 @@
                         @if (User.Identity.IsAuthenticated == false)
                         {
                             <ul class="navbar-nav navbar-right">
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="Security" asp-controller="Account" asp-action="Register"><i class="bi bi-person-plus"></i> Sign Up</a></li>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="Security" asp-controller="Account" asp-action="Login"><i class="bi bi-unlock"></i> Login</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="Security" asp-controller="Account" asp-action="Register"><i class="bi bi-person-plus"></i> Registrace</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="Security" asp-controller="Account" asp-action="Login"><i class="bi bi-unlock"></i> Přihlášení</a></li>
                             </ul>
                         }
                         else

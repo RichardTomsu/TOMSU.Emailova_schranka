@@ -18,7 +18,6 @@ namespace TOMSU.Emailova_schranka.Web.Areas.Admin.Controllers
         IMessageAdminService _messageAdminService;
         ISecurityService _securityService;
         User user;
-		MessageViewModel viewModel = new MessageViewModel();
 
 		public MessageController(IMessageAdminService messageAdminService, ISecurityService securityService) 
         { 
